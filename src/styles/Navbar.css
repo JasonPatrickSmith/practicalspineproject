@@ -1,0 +1,104 @@
+.mainNav {
+    height: 6rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    border-bottom: 2px solid #d7dbe1;
+    background-color: #e8ecf2;
+    z-index: 100;
+}
+
+
+.navbox {
+    height: 100%;
+}
+
+.navbox.left {
+    flex: 1;
+}
+
+.navbox.mid {
+    display: flex;
+    flex-direction: row;
+    width: 32rem;
+}
+
+.navbox.right {
+    flex: 1;
+}
+
+.pageselector {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor:pointer;
+}
+
+.pageselector > h1.active::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -10%;
+    /* margin-bottom: -98px; */
+    width: 120%;
+    height: 2px;
+    background-color: #4877bc;
+    opacity: 1;
+}
+
+
+
+
+.pageselector > h1::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -10%;
+    /* margin-bottom: -98px; */
+    width: 120%;
+    height: 2px;
+    opacity: 0;
+    transition: opacity .13s;
+}
+
+.pageselector > h1.hovering::after {
+    content: '';
+    position: absolute;
+    bottom: -40px;
+    left: -10%;
+    /* margin-bottom: -98px; */
+    width: 120%;
+    height: 2px;
+    background-color: #9ab9e7;
+    opacity: 1;
+}
+
+.pageselector > h1 {
+    color: #081b24;
+    position: relative;
+    font-size: 15px;
+}
+
+.pageselector > h1.hovering {
+    color: #9ab9e7;
+
+}
+
+.pageselector > h1.active {
+    color: #2d5797;
+}
+
+/* .mainNavText {
+    margin: 0;
+    padding: 0;
+
+} */
+
+
+.mainNav1 {
+    background-color: rebeccapurple;
+    height: 100%;
+    width: 15rem;
+}
