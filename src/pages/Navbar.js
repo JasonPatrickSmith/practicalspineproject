@@ -28,25 +28,6 @@ const Navbar = () => {
                     ))
                 }
                 </div>
-
-            {/* <div className="navbox left">
-
-            </div>
-            <div className="navbox mid">
-                {
-                    buttons.map((info) => ( // info = one array in the buttons array. info[0] is text, info[1] is a link
-                        <div onClick={() => {
-                            setSelected(info[0])
-                            nav(info[1])
-                            }} onMouseEnter={() => sethovering(info[0])} onMouseLeave={() => sethovering("")} className="pageselector">
-                            <h1 className={`${selected === info[0] ? "active" : (hovering === info[0] ? "hovering" : "")}`}>{info[0]}</h1>
-                        </div>
-                    ))
-                }
-            </div>
-            <div className="navbox right">
-
-            </div> */}
             </div>
         </div>
         
