@@ -1,4 +1,4 @@
-.mainNav {
+/* .mainNav {
     height: 6rem;
     width: 100%;
     display: flex;
@@ -6,6 +6,7 @@
     border-bottom: 2px solid #d7dbe1;
     background-color: #e8ecf2;
     z-index: 100;
+    position: fixed;
 }
 
 
@@ -41,7 +42,7 @@
     position: absolute;
     bottom: -40px;
     left: -10%;
-    /* margin-bottom: -98px; */
+    margin-bottom: -98px;
     width: 120%;
     height: 2px;
     background-color: #4877bc;
@@ -56,7 +57,7 @@
     position: absolute;
     bottom: -40px;
     left: -10%;
-    /* margin-bottom: -98px; */
+    margin-bottom: -98px;
     width: 120%;
     height: 2px;
     opacity: 0;
@@ -68,7 +69,7 @@
     position: absolute;
     bottom: -40px;
     left: -10%;
-    /* margin-bottom: -98px; */
+    margin-bottom: -98px;
     width: 120%;
     height: 2px;
     background-color: #9ab9e7;
@@ -88,7 +89,7 @@
 
 .pageselector > h1.active {
     color: #2d5797;
-}
+} */
 
 /* .mainNavText {
     margin: 0;
@@ -98,7 +99,73 @@
 
 
 .mainNav1 {
-    background-color: rebeccapurple;
+    background-color: #dadde1;
     height: 100%;
     width: 15rem;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    border-right: .5px solid #b9bcc0;
 }
+
+.navspacer {
+    width: 17rem;
+    position: relative;
+    height: 100%;
+}
+
+.logospace {
+    width: 100%;
+    height: 4rem;
+}
+
+.sections {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: auto;
+    gap: 4px;
+    align-items: center;
+}
+
+.pageselector {
+    height: 2.4rem;
+    width: 90%;
+    /* justify-content: center; */
+    line-height: 2.4rem;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    transition: background-color .1s ease-out;
+    cursor: pointer;
+}
+
+.selectortext {
+    font-size: 14px;
+    font-weight: 500;
+    color: #00132a;
+    transition: color .1s ease-out;
+}
+
+/* .pageselector.active, .pageselector.hovering {
+    background-color: white;
+} */
+
+.pageselector.active, .pageselector.hovering {
+    background-color: #012e6a;
+}
+
+.selectortext.hovering, .selectortext.active {
+    color: white;
+}
+
+
+.selectorimg {
+    width: 2rem;
+}
+
+/* .navsec {
+    padding-bottom: 1rem;
+    border-bottom: .5px solid #b9bcc0;
+} */
