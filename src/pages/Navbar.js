@@ -4,8 +4,8 @@ import { useState } from "react"
 
 const Navbar = () => {
 
-    const [selected, setSelected] = useState("0")
-    const [hovering, sethovering] = useState("0")
+    const [selected, setSelected] = useState("")
+    const [hovering, sethovering] = useState("")
     const buttons = [["Dashboard", "/home"], ["Articles", "/articles"], ["Studies", "/clinical"], ["About", "/about"], ["Settings", "/settings"]]
     const nav = useNavigate();
 

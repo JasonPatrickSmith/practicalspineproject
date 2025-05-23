@@ -12,6 +12,7 @@
 
 .pagecontent {
   flex: 1;
+  position: relative;
 }
 
 .hidescroll {
@@ -40,4 +41,11 @@ p {
 .commontext {
   line-height: 1.5rem;
   color: #081b24;
+}
+
+@media (max-width: 500px) {
+  .pagecontent {
+    width: 100%;
+    flex: none;
+  }
 }
