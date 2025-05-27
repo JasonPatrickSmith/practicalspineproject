@@ -94,23 +94,58 @@
     margin-left: .8rem;
     width: calc(100% - 1.6rem);
     height: 30rem;
-    border: 1px solid #b9bcc0;
+    border: 1px solid #b9bcc0;  
     border-radius: 10px;
-    margin-top: 1rem;
 }
 
 .sorting {
-    height: 3rem;
+    height: 4rem;
     display: flex;
     flex-direction: row;
-    width: 100%;
+    width: calc(100% - 3rem);
+    margin-left: 1.5rem;
     align-items: center;
     gap: .5rem;
-    background-color: red;
+    /* background-color: red; */
 }
 
 .datecontainer {
-    background-color: blue;
-    width: 5rem;
-    height: 1.5rem;
+    width: 15rem;
+    height: 2rem;
+    gap: 2px;
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+    align-items: center;
+    background-color: #e2e4e8;
+    border: 1px solid #b9bcc0;
+    border-radius: 6px;
+}
+
+
+/* DATE BUTTONS */
+
+.datebutton {
+    cursor: pointer;
+    border-radius: 5px;
+    color: #575757;
+    font-size: 14px;
+    background-color: #e2e4e8;
+    height: 80%;
+    flex: .161;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color .2s, color .2s;
+}
+
+.datebutton:hover {
+    color: white;
+    background-color: #003171;
+}
+
+.datebutton.clicked {
+    color: white;
+    background-color: #003171;
 }

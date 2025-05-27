@@ -1,10 +1,32 @@
 import {Link} from "react-router-dom"
 import "../styles/Clinical.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { supabase } from "../supabase"
 
 const Clinical = () => {
 
     const [recommended, setRecommended] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    const [date, setDate] = useState("1M")
+    const [studies, setStudies] = useState([])
+
+    const datesortings = [["1M", 30],["1Y", 365],["5Y", 1825],["10Y", 3650],["30Y", 10950], ["ALL", 100000]]
+    
+    useEffect(() => {
+        const fetchStudies = async () => {
+          const { data, error } = await supabase
+            .from('study_entries')
+            .select('*')
+    
+          if (error) {
+            console.error('Error fetching studies:', error)
+          } else {
+            setStudies(data)
+            console.log(data)
+          }
+        }
+    
+        fetchStudies()
+      }, [])
 
     return (
         <div className="hidescroll mainclin">
@@ -30,7 +52,17 @@ const Clinical = () => {
                 <h1 className="browsetitle">All Studies</h1>
                 <div className="searcher">
                     <div className="sorting">
-                        <div className="datecontainer"></div>
+                        <div className="datecontainer">
+                        {
+                            datesortings.map((info, i) => (
+                                <div className={`datebutton ${info[0] === date ? "clicked" : ""}`} onClick={() => {
+                                    setDate(info[0])
+                                }}>
+                                    {info[0]}
+                                </div>
+                            ))
+                        }
+                        </div>
                         
                     </div>
                 </div>
