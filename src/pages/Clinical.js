@@ -71,7 +71,13 @@ const Clinical = () => {
                                         <div className="constantmargin">
                                             <div className="approval"></div>
                                             <div className="headertext">
-
+                                                <h1 className="constanttitle">Hello this is a title</h1>
+                                                <p className="constantdesc">Hello this is a description. This study compares ESIs to other treatments for...</p>
+                                                <div className="constanttype">
+                                                    <div></div>
+                                                    <p>Analysis</p>
+                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
