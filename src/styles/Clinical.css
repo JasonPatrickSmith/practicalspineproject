@@ -35,8 +35,8 @@
 .reccard {
     flex: 0 0 auto;
     /* border: 2px solid #dee1e5; */
-    border: 1px solid #b9bcc0;
-    height: 99%;
+    border: 1.5px solid #d4d6da;
+    height: 97%;
     width: 12.9rem;
     border-radius: 10px;
 }
@@ -93,33 +93,34 @@
 .searcher {
     margin-left: .8rem;
     width: calc(100% - 1.6rem);
-    height: 30rem;
-    border: 1px solid #b9bcc0;  
+    height: auto;
+    padding-bottom: 1.5rem;
+    border: 1.5px solid #d4d6da;  
     border-radius: 10px;
 }
 
 .sorting {
-    height: 4rem;
+    height: 4.5rem;
     display: flex;
     flex-direction: row;
     width: calc(100% - 3rem);
-    margin-left: 1.5rem;
+    margin-left: 1.2rem;
     align-items: center;
     gap: .5rem;
     /* background-color: red; */
 }
 
 .datecontainer {
-    width: 15rem;
+    width: 17rem;
     height: 2rem;
     gap: 2px;
     display: flex;
     flex-direction: row;
-
+    background: linear-gradient(#e8ecf1, #e2e4e8);
     justify-content: center;
     align-items: center;
-    background-color: #e2e4e8;
-    border: 1px solid #b9bcc0;
+    /* background-color: #e2e4e8; */
+    border: 1.5px solid #d4d6da;
     border-radius: 6px;
 }
 
@@ -131,21 +132,156 @@
     border-radius: 5px;
     color: #575757;
     font-size: 14px;
-    background-color: #e2e4e8;
-    height: 80%;
-    flex: .161;
+    height: 85%;
+    flex: .162;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: background-color .2s, color .2s;
+    transition: background-color .2s, color .2s, border .2s;
+    border: 1px solid transparent
 }
 
 .datebutton:hover {
     color: white;
     background-color: #003171;
+    border: 1px solid #000f23;
 }
 
 .datebutton.clicked {
     color: white;
     background-color: #003171;
+    border: 1px solid #000f23;
 }
+
+/* DATE BUTTONS */
+
+
+.directory {
+    background-color: #e8ecf1;
+    height: 30rem;
+    width: calc(100% - 3rem);
+    margin-left: 1.2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1.5px solid #d4d6da;
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* CARD DIVISIONS */
+
+.card {
+    border-bottom: 1.5px solid #d4d6da;
+    /* line-height:; */
+    height: 5.5rem;
+    
+}
+
+
+
+.first {
+    height: 3rem !important;
+}
+
+.infowrapper {
+    flex: 1;
+    overflow-x: auto;
+}
+
+.infowrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+.info {
+    min-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.studycard {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+}
+
+.studycard.first {
+    background-color: #d8dce0;
+}
+
+.studycard > div {
+    height: 100%;
+    width: 8rem;
+    line-height: 5.5rem;
+    text-align: center;
+    /* background-color: red; */
+    font-weight: 450;
+    color: #383838;
+    font-size: 15px;
+}
+
+.condition {
+    padding-left: 2rem;
+}
+
+.condition, .treatment {
+    width: 10rem !important;
+}
+
+.first > div {
+    line-height: 3rem !important;
+    /* font-weight: 500; */
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: #808080;
+    font-size: 13px;
+}
+
+/* CONSTANT CARD */
+
+.constants {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+}
+
+.constantcard {
+    width: 100%;
+    /* background-color: blue; */
+    border-right: 1.5px solid #c9cacd;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.constantcard.first {
+    border-right: none;
+    background-color: #d8dce0;
+}
+
+.constantmargin {
+    height: calc(100% - 1.5rem);
+    width: calc(100% - 1.5rem);
+    display: flex;
+    gap: 5px;
+}
+
+.approval {
+    background-color: red;
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+}
+
+.headertext {
+    flex: 1;
+    background-color: blue;
+
+}
+
+/* CONSTANT CARD */
