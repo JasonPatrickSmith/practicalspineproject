@@ -97,6 +97,7 @@
     padding-bottom: 1.5rem;
     border: 1.5px solid #d4d6da;  
     border-radius: 10px;
+    /* background-color: ; */
 }
 
 .sorting {
@@ -174,7 +175,7 @@
 .card {
     border-bottom: 1.5px solid #d4d6da;
     /* line-height:; */
-    height: 6rem;
+    height: 5.5rem;
     
 }
 
@@ -214,21 +215,21 @@
 
 .studycard > div {
     height: 100%;
-    width: 8rem;
-    line-height: 6rem;
+    width: 6rem;
+    line-height: 5.5rem;
     text-align: center;
     /* background-color: red; */
     font-weight: 450;
     color: #383838;
-    font-size: 15px;
+    font-size: 13px;
 }
 
-.condition {
+.writer {
     padding-left: 2rem;
 }
 
 .condition, .treatment {
-    width: 10rem !important;
+    width: 8rem !important;
 }
 
 .first > div {
@@ -266,7 +267,7 @@
 
 .constantmargin {
     height: calc(100% - 1.5rem);
-    width: calc(100% - 1.5rem);
+    width: calc(100% - 2.5rem);
     display: flex;
     gap: 15px;
 }
@@ -282,6 +283,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .constanttitle {
@@ -293,19 +295,25 @@
 .constantdesc {
     margin: 0;
     padding: 0;
-    font-size: 10px;
-    color: #383838;
-    margin-top: 2px;
+    font-size: 11px;
+    color: #828282;
+    margin-top: 3px;
     margin-left: 1px;
 }
 
 .constanttype {
     margin-left: 1px;
-    margin-top: 3px;
+    margin-top: 4px;
     display: flex;
     flex-direction: row;
     align-items: center;
+    /* width: calc(auto + 100px ); */
+    align-self: flex-start;
     gap: 4px;
+    background-color: #dfe3e7;
+    padding-left: .3rem;
+    padding-right: .3rem;
+    border-radius: 10px;
 }
 
 .constanttype > p {
@@ -315,9 +323,11 @@
 }
 
 .constanttype > div {
-    background-color: #74b326;
+    /* background-color: #74b326; */
+    background-color: #eca201;
+    /* background-color: #004094; */
     border-radius: 100%;
-    height: .5rem;
+    height: .4rem;
     aspect-ratio: 1/1;
     margin-top: 1px;
 }

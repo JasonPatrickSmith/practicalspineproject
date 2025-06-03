@@ -69,10 +69,10 @@ const Clinical = () => {
                                 studies.map((info, i) => (
                                     <div className="constantcard card">
                                         <div className="constantmargin">
-                                            <div className="approval"></div>
+                                            {/* <div className="approval"></div>     */}
                                             <div className="headertext">
-                                                <h1 className="constanttitle">Hello this is a title</h1>
-                                                <p className="constantdesc">Hello this is a description. This study compares ESIs to other treatments for...</p>
+                                                <h1 className="constanttitle">The Risk of Epidural Steroid Injections in...</h1>
+                                                <p className="constantdesc">Hello this is a description. This study compares ESIs...</p>
                                                 <div className="constanttype">
                                                     <div></div>
                                                     <p>Analysis</p>
@@ -87,6 +87,7 @@ const Clinical = () => {
                         <div className="infowrapper">
                             <div className="info">
                                 <div className="studycard first">
+                                    <div className="writer">Writer</div>
                                     <div className="condition">Condition</div>
                                     <div className="treatment">Treatment</div>
                                     <div className="sample">Sample Size</div>
@@ -97,6 +98,10 @@ const Clinical = () => {
                                 {
                                     studies.map((info, i) => (
                                         <div className="studycard card">
+                                            <div className="writer">
+                                                <img>
+                                                </img>
+                                            </div>
                                             <div className="condition">Herniated Disc</div>
                                             <div className="treatment">Epidural Steroid...</div>
                                             <div className="sample">100</div>
