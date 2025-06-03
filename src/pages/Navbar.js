@@ -16,6 +16,12 @@ const Navbar = () => {
 
                 </div>
                 <div className="sections">
+                    <div className="open">
+                        <div className="lines">
+                            <div className="one"></div>
+                            <div className="two"></div>
+                        </div>
+                    </div>
                 {
                     buttons.map((info) => ( // info = one array in the buttons array. info[0] is text, info[1] is a link
                         <div onClick={() => {

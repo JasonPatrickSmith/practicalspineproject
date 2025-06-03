@@ -54,10 +54,6 @@
     transition: color .1s ease-out;
 }
 
-/* .pageselector.active, .pageselector.hovering {
-    background-color: white;
-} */
-
 .pageselector.active, .pageselector.hovering {
     background-color: #003171;
 }
@@ -71,7 +67,34 @@
     width: 2rem;
 }
 
-/* .navsec {
-    padding-bottom: 1rem;
-    border-bottom: .5px solid #b9bcc0;
-} */
+.open {
+    position: absolute;
+    width: 3rem;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    background-color: #dadde1;
+    border: 1px solid #888a8c;
+    right: 0;
+    margin-right: -1.5rem;
+    margin-top: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.open > .lines {
+    width: 50%;
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.lines > div {
+    flex: 1;
+    border-bottom: 1px solid #6f7172;
+}
+
+.lines > .one {
+    border-top:  1px solid #6f7172;
+}
