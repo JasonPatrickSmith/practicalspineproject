@@ -15,6 +15,9 @@
   /* flex: 1; */
   width: calc(100% - 15rem);
   position: relative;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 
 .hidescroll {

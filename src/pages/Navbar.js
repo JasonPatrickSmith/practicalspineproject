@@ -6,17 +6,20 @@ const Navbar = () => {
 
     const [selected, setSelected] = useState("")
     const [hovering, sethovering] = useState("")
+    const [open, setopen] = useState("true")
     const buttons = [["Dashboard", "/home"], ["Articles", "/articles"], ["Studies", "/clinical"], ["About", "/about"], ["Settings", "/settings"]]
     const nav = useNavigate();
 
     return (
-        <div className="navspacer">
-            <div className="mainNav1">
+        <div className={`navspacer ${open}`}>
+            <div className={`mainNav1 ${open}`}>
                 <div className='logospace'>
 
                 </div>
                 <div className="sections">
-                    <div className="open">
+                    <div className="open" onClick={() => {
+                        setopen(open === "true" ? "false" : "true")
+                    }}>
                         <div className="lines">
                             <div className="one"></div>
                             <div className="two"></div>
