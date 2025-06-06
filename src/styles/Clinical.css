@@ -117,7 +117,8 @@
     gap: 2px;
     display: flex;
     flex-direction: row;
-    background: linear-gradient(#e8ecf1, #e2e4e8);
+    /* background: linear-gradient(#e8ecf1, #e2e4e8); */
+    background-color:#e8ecf1 ;
     justify-content: center;
     align-items: center;
     /* background-color: #e2e4e8; */

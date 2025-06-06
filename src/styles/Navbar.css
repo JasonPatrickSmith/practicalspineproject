@@ -114,6 +114,6 @@
 }
 
 .navspacer.false {
-    width: 7rem
-    /* width: 0; */
+    /* width: 7rem */
+    width: 0;
 }

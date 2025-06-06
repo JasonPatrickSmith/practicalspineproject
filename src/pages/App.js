@@ -1,16 +1,19 @@
 import '../styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { useState } from "react"
 import Navbar from './Navbar'
 import Clinical from "./Clinical"
+import Studies from "./Studies"
 import Paper from "./Paper"
 
 function App() {
+  const [open, setopen] = useState("true")
   return (
     <div className='hidescroll formatting'>
-        <Navbar/>
-        <div className='pagecontent'>
+        <Navbar open={open} setopen={setopen} />
+        <div className={`pagecontent ${open}`}>
           <Routes>
-            <Route path='/clinical' element={<Clinical/>} />
+            <Route path='/studies' element={<Clinical/>} />
             <Route path='/clinical/:id' element={<Paper/>}/>
           </Routes>
         </div>

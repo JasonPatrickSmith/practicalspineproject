@@ -2,12 +2,11 @@ import { Link, useNavigate } from "react-router-dom"
 import "../styles/Navbar.css"
 import { useState } from "react"
 
-const Navbar = () => {
+const Navbar = ({open, setopen}) => {
 
     const [selected, setSelected] = useState("")
     const [hovering, sethovering] = useState("")
-    const [open, setopen] = useState("true")
-    const buttons = [["Dashboard", "/home"], ["Articles", "/articles"], ["Studies", "/clinical"], ["About", "/about"], ["Settings", "/settings"]]
+    const buttons = [["Dashboard", "/home"], ["Articles", "/articles"], ["Studies", "/studies"], ["About", "/about"], ["Settings", "/settings"]]
     const nav = useNavigate();
 
     return (
