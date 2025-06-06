@@ -18,7 +18,7 @@ const Navbar = () => {
                 </div>
                 <div className="sections">
                     <div className="open" onClick={() => {
-                        setopen(open === "true" ? "false" : "true")
+                        setopen(!open)
                     }}>
                         <div className="lines">
                             <div className="one"></div>

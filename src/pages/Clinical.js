@@ -10,7 +10,8 @@ const Clinical = () => {
     const [studies, setStudies] = useState([])
     const datesortings = [["1M", 30],["1Y", 365],["5Y", 1825],["10Y", 3650],["30Y", 10950], ["ALL", 100000]]
 
-    useEffect(() => {
+    // retreiving new data whenever parameters are changed (like given dates, duration, etc)
+    useEffect(() => { 
         const fetchStudies = async () => {
           const { data, error } = await supabase
             .from('study_entries')
@@ -25,6 +26,37 @@ const Clinical = () => {
     
         fetchStudies()
       }, [date])
+    
+    function convertDate(dateStr) {
+        const date = new Date(dateStr);
+
+        // short month, full year format
+        const options = { year: 'numeric', month: 'short' }; 
+        // format date
+        const formattedDate = date.toLocaleDateString('en-US', options);
+
+        return formattedDate;
+    }
+
+    function convertDuration(dur) {
+        const categories = [[4, "Weeks", 1], [51, "Months", 4], [10000, "Years", 52]]
+        for (let i = 0; i < categories.length; i++) {
+            const cat = categories[i]
+            if (dur <= cat[0]) {
+                return (Math.floor(dur/cat[2])).toString() + " " + cat[1]
+            }
+        }
+    }
+
+    // for redoing conditions and treatments
+    function convertTerms(terms) {
+        let returner = ""
+
+        for (let i = 0; i < terms.length; i++) {
+            returner += terms[i] + (i < terms.length - 1 ? ", " : "")
+        }
+        return returner
+    }
 
     return (
         <div className="hidescroll mainclin">
@@ -71,8 +103,8 @@ const Clinical = () => {
                                         <div className="constantmargin">
                                             {/* <div className="approval"></div>     */}
                                             <div className="headertext">
-                                                <h1 className="constanttitle">The Risk of Epidural Steroid Injections in...</h1>
-                                                <p className="constantdesc">Hello this is a description. This study compares ESIs...</p>
+                                                <h1 title={info.Title} className="constanttitle">{info.Title}</h1>
+                                                <p title={info.mini_sum} className="constantdesc">{info.mini_sum}</p>
                                                 <div className="constanttype">
                                                     <div></div>
                                                     <p>Analysis</p>
@@ -87,7 +119,7 @@ const Clinical = () => {
                         <div className="infowrapper">
                             <div className="info">
                                 <div className="studycard first">
-                                    <div className="writer">Writer</div>
+                                    <div className="writer">Reviewers</div>
                                     <div className="condition">Condition</div>
                                     <div className="treatment">Treatment</div>
                                     <div className="sample">Sample Size</div>
@@ -102,12 +134,24 @@ const Clinical = () => {
                                                 <img>
                                                 </img>
                                             </div>
-                                            <div className="condition">Herniated Disc</div>
-                                            <div className="treatment">Epidural Steroid...</div>
-                                            <div className="sample">100</div>
-                                            <div className="duration">1 Year</div>
-                                            <div className="date">Mar 15</div>
-                                            <div className="views"> 1324</div>
+                                            {/* <div className="condition">
+                                                <p className="conditiontext">{convertTerms(info.conditions)}</p>
+                                                
+                                            </div>
+                                            <div className="treatment">
+                                                <p className="treatmenttext">{convertTerms(info.treatments)}</p>
+                                            </div> */}
+                                            <div className="condition">
+                                                <p className="conditiontext">{info.conditions[0] + "..."}</p>
+                                                
+                                            </div>
+                                            <div className="treatment">
+                                                <p className="treatmenttext">{info.treatments[0] + "..."}</p>
+                                            </div>
+                                            <div className="sample">{info.sample_size}</div>
+                                            <div className="duration">{convertDuration(info.Duration)}</div>
+                                            <div className="date">{convertDate(info.date)}</div>
+                                            <div className="views">{info.views}</div>
                                         </div>
                                     ))
                                 }
