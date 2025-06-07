@@ -13,7 +13,7 @@ function App() {
         <Navbar open={open} setopen={setopen} />
         <div className={`pagecontent ${open}`}>
           <Routes>
-            <Route path='/studies' element={<Clinical/>} />
+            <Route path='/studies' element={<Studies/>} />
             <Route path='/clinical/:id' element={<Paper/>}/>
           </Routes>
         </div>

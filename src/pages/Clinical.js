@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom"
 import "../styles/Clinical.css"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { supabase } from "../supabase"
 
 const Clinical = () => {
