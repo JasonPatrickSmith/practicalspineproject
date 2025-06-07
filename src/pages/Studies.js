@@ -76,7 +76,10 @@ const Clinical = () => {
     }
 
     function applySearch(param) {
-        setSearchParams({ q: search }, { replace: true })
+        if (search.trim() !== "") {
+            setSearchParams({ q: search }, { replace: true })
+        }
+        
     }
 
     return (
@@ -85,15 +88,20 @@ const Clinical = () => {
             <div className="search">
 
                 <div className="searchbar">
-                    <img src={magnifying} onClick={applySearch}>
-    
-                    </img>
+                    <img src={magnifying} onClick={applySearch}></img>
 
                     <input 
                     value={search}
                     className="searchelem" 
                     placeholder="Search Anything" 
-                    onChange={(e) => setSearch(e.target.value)} 
+                    onChange={(e) => {
+                        if (e.target.value !== null) {
+                            setSearch(e.target.value)
+                        }
+                        
+                    }
+                        
+                    } 
                     onKeyDown={
                         (e) => {
                             if (e.key === "Enter") {
@@ -103,6 +111,9 @@ const Clinical = () => {
                     } />
                 </div>
                 
+                <div className="filters">
+
+                </div>
                 
             </div>
         </div>

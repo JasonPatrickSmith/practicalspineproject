@@ -17,6 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 12px;
 }
 
 .search > h1 {
@@ -56,4 +57,18 @@
     left: .75rem;
     margin-top: .2rem;
     cursor: pointer;
+     filter: grayscale(100%);
+}
+
+.searchbar > img:hover {
+    filter: grayscale(0%) hue-rotate(200deg) saturate(200%);
+}
+
+.filters {
+    width: calc(100% - 35rem);
+    height: 3rem;
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
 }
