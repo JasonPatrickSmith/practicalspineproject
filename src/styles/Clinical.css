@@ -168,17 +168,15 @@
     border: 1.5px solid #d4d6da;
     display: flex;
     flex-direction: row;
+
+    container-type: inline-size;
+    container-name: directory;
 }
 
 
 /* CARD DIVISIONS */
 
-.card {
-    border-bottom: 1.5px solid #d4d6da;
-    /* line-height:; */
-    height: 5.5rem;
-    
-}
+
 
 
 
@@ -189,6 +187,7 @@
 .infowrapper {
     flex: 1;
     overflow-x: auto;
+    min-width: 12rem;
 }
 
 .infowrapper::-webkit-scrollbar {
@@ -309,6 +308,24 @@
     white-space: nowrap;
     max-width: 100%;
     text-overflow: ellipsis;
+}
+
+.card {
+    border-bottom: 1.5px solid #d4d6da;
+    /* line-height:; */
+    /* height: 6.5rem; */
+    height: 5.5rem;
+}
+
+@container directory (max-width: 706px) {
+    .constanttitle {
+        white-space: normal;
+        height: 2.7rem;
+    }
+
+    .card {
+        height: 6.5rem;
+    }
 }
 
 .constantdesc {

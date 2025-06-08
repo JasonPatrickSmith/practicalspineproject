@@ -15,6 +15,7 @@ function App() {
           <Routes>
             <Route path='/studies' element={<Studies/>} />
             <Route path='/clinical' element={<Clinical/>} />
+            {/* <Route path='/studies' element={<Clinical/>} /> */}
             <Route path='/clinical/:id' element={<Paper/>}/>
           </Routes>
         </div>
