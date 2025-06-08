@@ -14,6 +14,7 @@ function App() {
         <div className={`pagecontent ${open}`}>
           <Routes>
             <Route path='/studies' element={<Studies/>} />
+            <Route path='/clinical' element={<Clinical/>} />
             <Route path='/clinical/:id' element={<Paper/>}/>
           </Routes>
         </div>

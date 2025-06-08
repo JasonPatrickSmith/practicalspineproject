@@ -111,10 +111,32 @@ const Clinical = () => {
                     } />
                 </div>
                 
-                <div className="filters">
+                {/* <div className="filters">
 
-                </div>
+                </div> */}
                 
+            </div>
+            
+            <div className="content">
+                <div className="cards">
+                    <div className="card">
+                        <div className="spacer">
+                            <div className="top1">
+                                <h1 className="title1">The Efficacy of Lumber Steroid Injections</h1>
+                                <div className="type1">
+                                    <div className="dot"></div>
+                                    <div className="text">Analysis</div>
+                                </div>
+                                
+                            </div>
+                            <div className="desc">
+
+                            </div>
+                            <div className="details"></div>
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </div>
     )
