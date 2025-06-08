@@ -312,19 +312,18 @@
 
 .card {
     border-bottom: 1.5px solid #d4d6da;
-    /* line-height:; */
-    /* height: 6.5rem; */
     height: 5.5rem;
+    /* height: 6.5rem; */
 }
 
 @container directory (max-width: 706px) {
     .constanttitle {
         white-space: normal;
-        height: 2.7rem;
+        
     }
 
     .card {
-        height: 6.5rem;
+        
     }
 }
 

@@ -4,6 +4,13 @@ import { useState, useEffect, useRef } from "react"
 import { supabase } from "../supabase"
 import userEvent from "@testing-library/user-event"
 import magnifying from "../assets/magnifying-glass-18.png"
+import spineicon from "../assets/drop.png"
+import bandaidicon from "../assets/first aid.png"
+import clock from "../assets/clock.png"
+import person from "../assets/person.png"
+import calendar from "../assets/calendar.png"
+import eye from "../assets/eye.png"
+import desc from "../assets/desc.png"
 
 const Clinical = () => {
 
@@ -122,17 +129,56 @@ const Clinical = () => {
                     <div className="card">
                         <div className="spacer">
                             <div className="top1">
-                                <h1 className="title1">The Efficacy of Lumber Steroid Injections</h1>
-                                <div className="type1">
-                                    <div className="dot"></div>
-                                    <div className="text">Analysis</div>
+                                <h1 className="title1">
+                                    Comparing Surgery and Non-Surgical Treatment for Lower Back Disc Herniations: 8-Year Results from a National Spine Study
+                                    <div className="type1">
+                                        <div className="dot">
+                                            <div className="dotimg"></div>
+                                            <div className="text">Analysis</div>
+                                        </div>
+                                    </div>
+                                </h1>
+                            </div>
+                            <div className="details">
+                                <div className="injury">
+                                    <img src={spineicon}></img>
+                                    <p>Herniated Disc</p>
                                 </div>
-                                
+                                <div className="remedy">
+                                    <img src={bandaidicon}></img>
+                                    <p>Epidural Steroid Injection</p>
+                                </div>
+                                <div className="duration">
+                                    <img src={clock}></img>
+                                    <p>1 Year</p>
+                                </div>
+                                <div className="sample_size">
+                                    <img src={person}></img>
+                                    <p>142</p>
+                                </div>
+                                <div className="date">
+                                    <img src={calendar}></img>
+                                    <p>Apr 2024</p>
+                                </div>
+                                <div className="views">
+                                    <img src={eye}></img>
+                                    <p>1314</p>
+                                </div>
                             </div>
                             <div className="desc">
-
+                                <div className="lastedited">
+                                    <div className="editeddot"></div>
+                                    <div className="editedtext">
+                                        Last Edited 2d Ago
+                                    </div>
+                                </div>
+                                <div className="expandable">
+                                    <img src={desc}></img>
+                                    <div className="desctext">
+                                        Description
+                                    </div>
+                                </div>
                             </div>
-                            <div className="details"></div>
                         </div>
                         
                     </div>
