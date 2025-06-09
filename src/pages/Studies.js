@@ -21,6 +21,8 @@ const Clinical = () => {
     const [studies, setStudies] = useState([])
     const datesortings = [["1M", 30],["1Y", 365],["5Y", 1825],["10Y", 3650],["30Y", 10950], ["ALL", 100000]]
     const [search, setSearch] = useState(searchParams.get("q") || "")
+
+    const[openDesc, setOpenDesc] = useState(-1)
     
 
     const isfirstrender = useRef(true)
@@ -126,43 +128,61 @@ const Clinical = () => {
             
             <div className="content">
                 <div className="cards">
-                    <div className="card">
-                        <div className="spacer">
+                    {
+                        studies.map((info, i) => (
+
+
+                            <div className="card">
+                            <div className="spacer">
                             <div className="top1">
-                                <h1 className="title1">
-                                    Comparing Surgery and Non-Surgical Treatment for Lower Back Disc Herniations: 8-Year Results from a National Spine Study
-                                    <div className="type1">
-                                        <div className="dot">
-                                            <div className="dotimg"></div>
-                                            <div className="text">Analysis</div>
-                                        </div>
-                                    </div>
-                                </h1>
+                                <h1 className="title1">{info.Title}</h1>
                             </div>
+                            <div className="tags">
+                                
+                                <div className="type1">
+                                    <div className="dot">
+                                        <div className="dotimg"></div>
+                                        <div className="text">Analysis</div>
+                                    </div>
+                                </div>
+                                {
+                                    info.conditions.map((infoc, j) => (
+                                        <div className="type1 c">
+                                            <div className="dot c">
+                                                <div className="dotimg c"></div>
+                                                <div className="text">{infoc}</div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                                {
+                                    info.treatments.map((infot, j) => (
+                                        <div className="type1 t">
+                                            <div className="dot t">
+                                                <div className="dotimg t"></div>
+                                                <div className="text">{infot}</div>
+                                            </div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            
                             <div className="details">
-                                <div className="injury">
-                                    <img src={spineicon}></img>
-                                    <p>Herniated Disc</p>
-                                </div>
-                                <div className="remedy">
-                                    <img src={bandaidicon}></img>
-                                    <p>Epidural Steroid Injection</p>
-                                </div>
                                 <div className="duration">
                                     <img src={clock}></img>
-                                    <p>1 Year</p>
+                                    <p>{convertDuration(info.Duration)}</p>
                                 </div>
                                 <div className="sample_size">
                                     <img src={person}></img>
-                                    <p>142</p>
+                                    <p>{info.sample_size}</p>
                                 </div>
                                 <div className="date">
                                     <img src={calendar}></img>
-                                    <p>Apr 2024</p>
+                                    <p>{convertDate(info.date)}</p>
                                 </div>
                                 <div className="views">
                                     <img src={eye}></img>
-                                    <p>1314</p>
+                                    <p>{info.views}</p>
                                 </div>
                             </div>
                             <div className="desc">
@@ -172,16 +192,22 @@ const Clinical = () => {
                                         Last Edited 2d Ago
                                     </div>
                                 </div>
-                                <div className="expandable">
+                                <div className="expandable" onClick={() => setOpenDesc(i)}>
                                     <img src={desc}></img>
                                     <div className="desctext">
                                         Description
                                     </div>
                                 </div>
                             </div>
+                            <div className={`expanddesc ${openDesc === i ? "open1" : "closed1"}`}>
+
+                            </div>
                         </div>
                         
                     </div>
+                        ))
+                    }
+                    
                 </div>
             </div>
         </div>
