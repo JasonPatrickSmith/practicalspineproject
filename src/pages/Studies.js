@@ -1,4 +1,4 @@
-import {Link, useSearchParams} from "react-router-dom"
+import {Link, useSearchParams, useNavigate} from "react-router-dom"
 import "../styles/Studies.css"
 import { useState, useEffect, useRef } from "react"
 import { supabase } from "../supabase"
@@ -13,6 +13,8 @@ import eye from "../assets/eye.png"
 import desc from "../assets/desc.png"
 
 const Clinical = () => {
+
+    const nav = useNavigate();
 
     const [searchParams, setSearchParams] = useSearchParams();
     
@@ -136,9 +138,12 @@ const Clinical = () => {
                 <div className="cards">
                     {
                         studies.map((info, i) => (
+                            
 
 
-                            <div className="card">
+                            <div className="card" onClick={() => {
+                                nav(`/studies/${info.id}`)
+                            }}>
                             <div className="spacer">
                             <div className="top1">
                                 <h1 className="title1">{info.Title}</h1>
@@ -198,7 +203,10 @@ const Clinical = () => {
                                         Last Edited 2d Ago
                                     </div>
                                 </div>
-                                <div className="expandable" onClick={() => handleDesc(i)}>
+                                <div className="expandable" onClick={(e) => {
+                                    handleDesc(i)
+                                    e.stopPropagation()
+                                }}>
                                     <img src={desc}></img>
                                     <div className="desctext">
                                         Description
