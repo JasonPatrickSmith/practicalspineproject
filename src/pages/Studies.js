@@ -50,7 +50,6 @@ const Clinical = () => {
         }
     
         fetchStudies()
-        console.log("ran")
       }, [searchParams])
     
     function convertDate(dateStr) {
@@ -89,6 +88,13 @@ const Clinical = () => {
             setSearchParams({ q: search }, { replace: true })
         }
         
+    }
+
+    function handleDesc(i) {
+
+        let newopen = openDesc === i ? -1 : i
+        
+        setOpenDesc(newopen)
     }
 
     return (
@@ -192,7 +198,7 @@ const Clinical = () => {
                                         Last Edited 2d Ago
                                     </div>
                                 </div>
-                                <div className="expandable" onClick={() => setOpenDesc(i)}>
+                                <div className="expandable" onClick={() => handleDesc(i)}>
                                     <img src={desc}></img>
                                     <div className="desctext">
                                         Description
@@ -200,7 +206,7 @@ const Clinical = () => {
                                 </div>
                             </div>
                             <div className={`expanddesc ${openDesc === i ? "open1" : "closed1"}`}>
-
+                                {info.mini_sum}
                             </div>
                         </div>
                         
