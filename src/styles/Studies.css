@@ -1,17 +1,29 @@
 .mainstudies {
-    max-width: calc(1300px);
+    max-width: 1200px;
     width: 90%;
     margin: 0 auto;
     height: 100%;
     margin-top: 5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: relative;
     /* margin-left: 0; */
-    gap: 3rem;
+    gap: 2rem;
 }
 
-.mainstudies > .search {
+.rightstudies {
+    width: calc(100% - 22rem);
+    /* margin: 0 auto; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    /* margin-left: 0; */
+    /* gap: 3rem; */
+}
+
+.rightstudies > .search {
     width: 100%;
     height: auto;
     display: flex;
@@ -19,6 +31,7 @@
     justify-content: center;
     align-items: center;
     gap: 12px;
+    margin-bottom: 2rem;
 }
 
 .search > h1 {
@@ -26,28 +39,36 @@
     line-height: 6rem;
 }
 
-.searchbar {
+.searchbar, .tagbar {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
     height: 3rem;
+    width: 100%;
 }
 
-.searchbar > .searchelem {
-    /* margin-left: .5rem; */
+.tagbar > .tagelem, .searchbar > .searchelem {
     outline: 0;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 15px;
     border: 1px solid rgb(180, 180, 180);
     background-color: #e8ecf1;
     font-size: 16px;
     color: rgb(43, 43, 43);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    padding-left: 2.85rem;
+    
     font-weight: 400;
     width: 100%;
+}
+
+.tagbar > .tagelem {
+    padding-left: 1rem;
+}
+
+.searchbar > .searchelem {
+    padding-left: 2.85rem;
 }
 
 .searchbar > img {
@@ -84,7 +105,7 @@
 
 .content > .cards {
     position: relative;
-    
+    margin-top: 2rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -128,7 +149,7 @@
 
 .top1 > .title1 {
 
-    width: calc(100% - 10rem);
+    width: calc(100% - 1rem);
     padding: 0;
     margin: 0;
     font-size: 15px;
@@ -139,23 +160,34 @@
 
 .content > .cards, .searchbar {
     max-width: 55rem;
-    width: calc(100% - 15rem); 
-    min-width: 40rem;
+    width: calc(100% - 4rem); 
+    /* min-width: 30rem; */
     /* min-width: 35rem; */
 }
 
-@container pagecontent (max-width: 950px) {
+@container pagecontent (max-width: 949px) {
     .content > .cards, .searchbar {
-        max-width: 40rem;
+        /* max-width: 30rem; */
         width: 90% ; 
         min-width: 0;
+    }
+
+    .rightstudies {
+        width: 100%;
     }
 }
 
 .tags {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    column-gap: 5px;
+    max-width: 35rem;
+    
+}
+
+.tags, .details {
+    flex-wrap: wrap;
+    width: calc(100% - 1rem);
 }
 
 .type1 {
@@ -242,15 +274,18 @@
 
 .details {
     /* margin-top: .5rem; */
-    width: 100%;
-    height: 2rem;
+    /* height: 2rem; */
+    height: auto;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    column-gap: 15px;
+    max-width: 20rem;
 }
 
 .details > div {
-    height: 100%;
+    height: 1.25rem;
     display: flex;
     flex-direction: row;
     width: auto;
@@ -265,7 +300,7 @@
 }
 
 .details > div > p {
-    font-size: 12px;
+    font-size: 11px;
     /* font-weight: 500; */
     /* color: #565656; */
      color: #383838;
@@ -358,7 +393,7 @@
 }
 
 .expandable > img {
-    width: .8rem;
+    width: .8rem; 
     height: .8rem;
 }
 
@@ -369,8 +404,9 @@
     max-height: 0rem;
     /* margin-left: .1rem; */
     padding-bottom: .45rem;
-    font-size: 13px;
+    font-size: 11px;
     cursor: default;
+    color: #383838;
 }
 
 .expanddesc.open1 {
@@ -382,4 +418,58 @@
 
 .expanddesc.closed1 {
     transition: opacity .1s ease , max-height .4s ease, padding-bottom .4s;
+}
+
+
+
+/* ---------------------------------------------------------------------------- */
+
+
+.big {
+    width: 20rem;
+    height: auto;
+    /* background-color: red; */
+    display: flex;
+}
+
+.big.inline {
+    flex-direction: row;
+    width: 90%;
+}
+
+.big.out {
+    flex-direction: column;
+}
+
+.tagssection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.big.inline > .tagssection {
+    width: 20rem;
+}
+
+.fulltags {
+    outline: 0;
+    height: auto;
+    max-height: 5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border-radius: 15px;
+    border: 1px solid rgb(180, 180, 180);
+    background-color: #e8ecf1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tagspace {
+    width: calc(100% - 2rem);
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    height: 1rem;
 }

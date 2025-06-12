@@ -57,7 +57,7 @@ p {
   color: #081b24;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 950px) {
   .pagecontent {
     width: 100% !important;
     flex: none;
