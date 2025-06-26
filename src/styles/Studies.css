@@ -182,6 +182,7 @@
     flex-direction: row;
     column-gap: 5px;
     max-width: 35rem;
+    margin-top: .5rem;
     
 }
 
@@ -200,10 +201,11 @@
     background-color: #edffd5; */
 
     border: 1px solid #a1bfdd;
-    background-color: #e2e8ef;
+    /* background-color: #e2e8ef; */
+    background-color: transparent;
     height: 1.25rem;
     border-radius: 15px;
-    margin-top: .5rem;
+    
     /* display: inline-block; */
 
 }
@@ -230,10 +232,6 @@
     background-color: #e2e8ef !important;
 }
 
-.dot.c {
-    
-}
-
 .dotimg.c {
     background-color: #0077b6 !important;
 }
@@ -243,12 +241,17 @@
     border: 1px solid #80b5c0 !important;
 }
 
-.dot.t {
-    
-}
-
 .dotimg.t {
     background-color: #00b4d8 !important;
+}
+
+.type1.g {
+    border: 1px solid #9ca5ad !important;
+    background-color: #dfe3e9 !important;
+}
+
+.dotimg.g {
+    background-color: #686e74 !important;
 }
 
 .type1 > .dot > .text {
@@ -263,6 +266,18 @@
     width: .4rem;
     border-radius: 100%;
     background-color: #2160DD;
+}
+
+.taginputtext {
+    outline: none;
+    background-color: transparent;
+    border: none;
+    font-size: 11px;
+    /* line-height: 1.25rem; */
+    width: 5rem;
+    height: 1.1rem;
+    margin-top: .05rem;
+    cursor: pointer;
 }
 
 
@@ -363,9 +378,9 @@
 }
 
 .editeddot {
-    width: .5rem;
+    width: .4rem;
     border-radius: 100%;
-    height: .5rem;
+    height: .4rem;
     background-color: #0047a4;
 }
 
@@ -455,8 +470,8 @@
     outline: 0;
     height: auto;
     max-height: 5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
     border-radius: 15px;
     border: 1px solid rgb(180, 180, 180);
     background-color: #e8ecf1;
@@ -467,9 +482,114 @@
 }
 
 .tagspace {
-    width: calc(100% - 2rem);
+    width: calc(100% - 1.5rem);
     height: auto;
     display: flex;
+    gap: .3rem;
+    
     flex-wrap: wrap;
-    height: 1rem;
+}
+
+.tagsholder {
+    width: auto;
+    position: relative;
+    flex-direction: column;
+}
+
+.tagsdropdown {
+    position: absolute;
+    width: 100%;
+    padding-bottom: .5rem;
+/*     
+    background-color: #dfe3e9; */
+    background-color: #e8ecf1;
+    margin-top: .3rem;
+    border-radius: 10px;
+    transition: max-height .1s;
+    overflow: scroll;
+}
+
+.tagsdropdown::-webkit-scrollbar {
+    display: none;
+}
+
+.tagsdropdown.opend {
+    max-height: 4rem;
+    height: auto;
+    border: 1px solid rgb(180, 180, 180);
+    
+}
+
+.tagsdropdown.closedd {
+    max-height: 0;
+    border: 0px solid black;
+    transition: border 0s ease .075s, height .1s;
+}
+
+/* .tagsscroll {
+    height: auto;
+    width: auto;
+    padding-left: .4rem;
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 5px;
+} */
+
+/* .searchresult {
+    white-space: nowrap;
+    font-size: 11px;
+    display: inline-block;
+} */
+/* 
+.resultdot {
+    height: .4rem;
+    background-color: blue;
+    width: .4rem;
+    border-radius: 50%;
+} */
+
+.tagscrollwrapper {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding-top: .4rem;
+}
+
+.tagsscroll {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 90%;
+  min-width: 0;
+  overflow: hidden;
+  padding-left: .5rem;
+  cursor: pointer;
+}
+
+.resultdot {
+  flex-shrink: 0; /* Make sure it doesn't shrink */
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background-color: blue;
+}
+
+.searchresult {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  min-width: 0; /* allows shrinking inside flex */
+}
+
+.resultdot.c {
+    background-color: #0077b6 !important;
+}
+
+.resultdot.t {
+    background-color: #00b4d8 !important;
 }

@@ -5,6 +5,7 @@ import Navbar from './Navbar'
 import Clinical from "./Clinical"
 import Studies from "./Studies"
 import Paper from "./Paper"
+import Shonali from "./Shonali"
 
 function App() {
   const [open, setopen] = useState("true")
@@ -34,6 +35,7 @@ function App() {
             <Route path='/clinical' element={<Clinical/>} />
             {/* <Route path='/studies' element={<Clinical/>} /> */}
             <Route path='/clinical/:id' element={<Paper/>}/>
+            <Route path='/shonali' element={<Shonali/>}/>
           </Routes>
         </div>
           

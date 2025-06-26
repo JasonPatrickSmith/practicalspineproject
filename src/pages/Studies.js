@@ -1,6 +1,7 @@
 import {Link, useSearchParams, useNavigate} from "react-router-dom"
+import Fuse from "fuse.js"
 import "../styles/Studies.css"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
 import { supabase } from "../supabase"
 import userEvent from "@testing-library/user-event"
 import magnifying from "../assets/magnifying-glass-18.png"
@@ -45,11 +46,17 @@ function convertTerms(terms) {
 }
 
 const Clinical = ({narrow, setNarrow}) => {
-
-    
     
     const [alltags, setalltags] = useState([])
     const nav = useNavigate();
+
+
+    const tagsfuse = new Fuse(alltags, {
+        keys: ["Name"],
+        threshold: .3,
+        ignoreLocation: true
+    })
+
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [search, setSearch] = useState(searchParams.get("q") || "")
@@ -124,7 +131,7 @@ const Clinical = ({narrow, setNarrow}) => {
     return (
         <div className="mainstudies">
             
-            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams}/>}
+            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse}/>}
             <div className="rightstudies">
                 {/* <h1>All Studies</h1> */}
                 <div className="search">
@@ -156,7 +163,7 @@ const Clinical = ({narrow, setNarrow}) => {
                     </div> */}
                     
                 </div>
-                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams}/>}
+                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse}/>}
                 <div className="content">
                     <div className="cards">
                         {
@@ -171,7 +178,7 @@ const Clinical = ({narrow, setNarrow}) => {
                                 <div className="tags">
                                     {
                                         info.Tags.map((ninfo, j) => (
-                                            <Tag info={ninfo} alltags={alltags} />
+                                            <Tag info={ninfo} alltags={alltags} searchtag={false}/>
                                         ))  
                                     }
                                 </div>
@@ -227,7 +234,43 @@ const Clinical = ({narrow, setNarrow}) => {
     )
 }
 
-const Sort = ({inline, searchParams, setSearchParams, alltags={alltags} }) => {
+const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse }) => {
+    
+    function extractNames(array, a = false) { // a is the option to sort alphabetically
+        // console.log(array)
+        let returner = []
+        for (let i = 0; i < array.length; i++) {
+            if (array[i].Name != "New Tag") {
+                returner.push(array[i].Name)
+            }
+            
+            
+        }
+        if (a) {
+            returner.sort((a, b) => a.localeCompare(b))
+        }
+
+        return returner
+    }
+
+    const alphabetically = useMemo(() => extractNames(alltags, true), [alltags]);
+    const [tagSearch, setTagSearch] = useState("")
+    const [searchResults, setSearchResults] = useState(alphabetically)
+
+    useEffect(() => { // initializing searchResults
+        setSearchResults(alphabetically)
+    }, [alphabetically])
+
+
+    useEffect(() => {
+        if (tagSearch !== "") {
+            setSearchResults(extractNames(fuse.search(tagSearch).map(a => a.item)))
+        }
+        else { // when query == "" (empty), revert to original list
+            setSearchResults(alphabetically)
+        }
+    }, [tagSearch]) // Whenever the query changes, update tagsearch
+
     // selected tags is just getting all the tags from the search param
     function getTags() {
         const origin = searchParams.get("tags")?.split(",")
@@ -243,39 +286,36 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags} }) => {
 
     const [selectedTags, setSelectedTags] = useState(getTags() || [])
 
+    function addTag(tag) {
+        if (!selectedTags.includes(tag)) {
+            const newselected = [...selectedTags, tag]
+            setSelectedTags(newselected)
+            console.log(selectedTags)
+        }
+    }
+
     // useEffect()
 
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
             <div className="tagssection">
-                <div className="tagbar">
-                    <input 
-                        className="tagelem" 
-                        placeholder="Add Tags..."
-                        onChange={(e) => {
-                            if (e.target.value !== null) {
-                                    
-                            }
-                        }     
-                    } />
-                </div>
                 <div className="fulltags">
                     <div className="tagspace">
                         {
-                            selectedTags.map((tag, i) => {
-                            <Tag key={i} info={tag} alltags={alltags}/>
-
-                            })
+                            selectedTags.map((tag, i) => (
+                                <Tag info={tag} alltags={alltags} searchtag={false}/>
+                            ))
                         }
+                        <Tag info={"New Tag"} alltags={alltags} searchtag={true} setTagSearch={setTagSearch} searchResults={searchResults} addTag={addTag} selectedTags={selectedTags}/>
                     </div>
                 </div>
             </div>
-            
         </div>
     )
 }
 
-const Tag = ({ info, alltags }) => { 
+const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags }) => {
+    
     function tagColor(name) {
         for (let i = 0; i < alltags.length; i++) {
             if (alltags[i].Name == name) {
@@ -284,16 +324,76 @@ const Tag = ({ info, alltags }) => {
             }
         }
     }
-
-    const color = tagColor(info)
+    const color = tagColor(info) || ""
     
+    const [dropdown, setDropdown] = useState(false)
+
+    var displayable = searchResults
+    let removed = 0
+    
+    if (searchResults) {
+        console.log(searchResults)
+        for (let i = 0; i < searchResults.length; i++ ) {
+            if (selectedTags.includes(searchResults[i])) {
+                displayable.splice(i - removed, 1)
+                removed += 1
+            }
+        }
+    }
+
+    // if (searchResults) {
+    //     console.log(displayable)
+    // }
+    
+    
+
     return (
-        <div className={`type1 ${color}`}>
-        <div className={`dot ${color}`}>
-            <div className={`dotimg ${color}`}></div>
-            <div className="text">{info}</div>
+
+        <div className="tagsholder">
+            <div className={`type1 ${color}`}>
+                <div className={`dot ${color}`}>
+                    <div className={`dotimg ${color}`}></div>
+                    {searchtag ? (
+                        <input
+                        className="taginputtext"
+                        placeholder={info}
+                        onFocus={() => {setDropdown(true)}}
+                        onBlur={() => {setDropdown(false)}}
+                        onChange={(e) => {
+                            // console.log("1")
+                            setTagSearch(e.target.value)
+                        }}
+                        />
+
+                    ) : (
+                        <div className="text">{info}</div>
+                    )}
+                    
+                </div>
+            </div>
+            {
+                searchtag ? (
+                    <div className={`tagsdropdown ${dropdown ? "opend" : "opend"}`}>
+                        <div className="tagscrollwrapper">
+                        {
+                            displayable.map((tag, i) => (
+                                
+                                    <div className="tagsscroll" onClick={() => {
+                                        addTag(tag)
+                                    }}>
+                                        <div className={`resultdot ${tagColor(tag)}`}></div>
+                                        <div className="searchresult">{tag}</div>
+                                    </div>
+                            ))
+                        }
+                        </div>
+                    </div>
+                ) : (               
+                <div></div>
+                    )
+            }
         </div>
-    </div>
+        
     )
     
 }
