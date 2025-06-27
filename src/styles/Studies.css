@@ -507,6 +507,7 @@
     border-radius: 10px;
     transition: max-height .1s;
     overflow: scroll;
+    z-index: 100;
 }
 
 .tagsdropdown::-webkit-scrollbar {

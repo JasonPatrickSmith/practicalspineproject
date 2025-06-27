@@ -128,10 +128,47 @@ const Clinical = ({narrow, setNarrow}) => {
         setOpenDesc(newopen)
     }
 
+
+    // --------------- PARENT TAG LOGIC --------------------
+    // selected tags is just getting all the tags from the search param
+    function getTags() {
+        const origin = searchParams.get("tags")?.split(",")
+        if (origin != null) {
+            return origin
+            .map(w => w
+            .split(" ")
+            .map(nw => nw.charAt(0).toUpperCase() + nw.slice(1))
+            .join(" ")) 
+        }
+        return null
+    }
+
+    // const [selectedTags, setSelectedTags] = useState(getTags() || [])
+    const selectedTags = useMemo(() => {
+        return getTags() || []
+    }, [searchParams])
+
+    function addTag(tag) {
+        if (!selectedTags.includes(tag)) {
+            const newselected = [...selectedTags, tag]
+            const tagparam = new URLSearchParams(searchParams.toString())
+            tagparam.set(
+                "tags",
+                newselected.join(",")
+            )
+            setSearchParams(tagparam)
+            // setSelectedTags(newselected)
+            // setSearchParams({ q: search })
+            // console.log(selectedTags)
+        }
+    }
+
+    // --------------- PARENT TAG LOGIC --------------------
+
     return (
         <div className="mainstudies">
             
-            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse}/>}
+            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags}/>}
             <div className="rightstudies">
                 {/* <h1>All Studies</h1> */}
                 <div className="search">
@@ -163,7 +200,7 @@ const Clinical = ({narrow, setNarrow}) => {
                     </div> */}
                     
                 </div>
-                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse}/>}
+                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags}/>}
                 <div className="content">
                     <div className="cards">
                         {
@@ -234,7 +271,7 @@ const Clinical = ({narrow, setNarrow}) => {
     )
 }
 
-const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse }) => {
+const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags}) => {
     
     function extractNames(array, a = false) { // a is the option to sort alphabetically
         // console.log(array)
@@ -271,28 +308,9 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse })
         }
     }, [tagSearch]) // Whenever the query changes, update tagsearch
 
-    // selected tags is just getting all the tags from the search param
-    function getTags() {
-        const origin = searchParams.get("tags")?.split(",")
-        if (origin != null) {
-            return origin
-            .map(w => w
-            .split(" ")
-            .map(nw => nw.charAt(0).toUpperCase() + nw.slice(1))
-            .join(" "))
-        }
-        return null
-    }
+    
 
-    const [selectedTags, setSelectedTags] = useState(getTags() || [])
-
-    function addTag(tag) {
-        if (!selectedTags.includes(tag)) {
-            const newselected = [...selectedTags, tag]
-            setSelectedTags(newselected)
-            console.log(selectedTags)
-        }
-    }
+    
 
     // useEffect()
 
@@ -346,6 +364,7 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
     // }
     
     
+    const [taginput, settaginput] = useState("")
 
     return (
 
@@ -357,11 +376,13 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
                         <input
                         className="taginputtext"
                         placeholder={info}
+                        value={taginput}
                         onFocus={() => {setDropdown(true)}}
                         onBlur={() => {setDropdown(false)}}
                         onChange={(e) => {
                             // console.log("1")
                             setTagSearch(e.target.value)
+                            settaginput(e.target.value)
                         }}
                         />
 
@@ -379,7 +400,9 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
                             displayable.map((tag, i) => (
                                 
                                     <div className="tagsscroll" onClick={() => {
-                                        addTag(tag)
+                                        addTag(tag) // add tag to list of tags selected (will update state)
+                                        settaginput("") // making input blank
+                                        setTagSearch("") // setting tag search empty so default (alphabetical) sorting will take over
                                     }}>
                                         <div className={`resultdot ${tagColor(tag)}`}></div>
                                         <div className="searchresult">{tag}</div>
