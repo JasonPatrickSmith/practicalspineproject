@@ -398,7 +398,7 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
             </div>
             {
                 searchtag ? (
-                    <div className={`tagsdropdown ${dropdown ? "opend" : "opend"}`}>
+                    <div className={`tagsdropdown ${dropdown ? "opend" : "closedd"}`}>
                         <div className="tagscrollwrapper">
                         {
                             displayable.map((tag, i) => (

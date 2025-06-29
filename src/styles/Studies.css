@@ -494,6 +494,7 @@
     width: auto;
     position: relative;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .tagsdropdown {
@@ -525,6 +526,7 @@
     max-height: 0;
     border: 0px solid black;
     transition: border 0s ease .075s, height .1s;
+    background-color: transparent;
 }
 
 /* .tagsscroll {
