@@ -115,9 +115,13 @@ const Clinical = ({narrow, setNarrow}) => {
     
 
     function applySearch(param) {
+        const updatedParams = new URLSearchParams(searchParams.toString());
         if (search.trim() !== "") {
-            setSearchParams({ q: search })
+            updatedParams.set("q", search);
+        } else {
+            updatedParams.delete("q"); // optional: clear q if empty
         }
+        setSearchParams(updatedParams);
         
     }
 
@@ -157,10 +161,20 @@ const Clinical = ({narrow, setNarrow}) => {
                 newselected.join(",")
             )
             setSearchParams(tagparam)
-            // setSelectedTags(newselected)
-            // setSearchParams({ q: search })
-            // console.log(selectedTags)
         }
+    }
+
+    function removeTag(tag) {
+        const newselected = selectedTags.filter(t => t !== tag);
+        const tagparam = new URLSearchParams(searchParams.toString());
+
+        if (newselected.length > 0) {
+            tagparam.set("tags", newselected.join(","));
+        } else {
+            tagparam.delete("tags"); // optional: clean up if no tags left
+        }
+
+        setSearchParams(tagparam);
     }
 
     // --------------- PARENT TAG LOGIC --------------------
@@ -168,7 +182,7 @@ const Clinical = ({narrow, setNarrow}) => {
     return (
         <div className="mainstudies">
             
-            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags}/>}
+            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag}/>}
             <div className="rightstudies">
                 {/* <h1>All Studies</h1> */}
                 <div className="search">
@@ -200,7 +214,7 @@ const Clinical = ({narrow, setNarrow}) => {
                     </div> */}
                     
                 </div>
-                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags}/>}
+                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag}/>}
                 <div className="content">
                     <div className="cards">
                         {
@@ -271,7 +285,7 @@ const Clinical = ({narrow, setNarrow}) => {
     )
 }
 
-const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags}) => {
+const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags, removeTag}) => {
     
     function extractNames(array, a = false) { // a is the option to sort alphabetically
         // console.log(array)
@@ -280,8 +294,6 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
             if (array[i].Name != "New Tag") {
                 returner.push(array[i].Name)
             }
-            
-            
         }
         if (a) {
             returner.sort((a, b) => a.localeCompare(b))
@@ -306,13 +318,8 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
         else { // when query == "" (empty), revert to original list
             setSearchResults(alphabetically)
         }
-    }, [tagSearch]) // Whenever the query changes, update tagsearch
+    }, [tagSearch, selectedTags, alltags]) // Whenever the query changes, update tagsearch
 
-    
-
-    
-
-    // useEffect()
 
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
@@ -321,7 +328,7 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
                     <div className="tagspace">
                         {
                             selectedTags.map((tag, i) => (
-                                <Tag info={tag} alltags={alltags} searchtag={false}/>
+                                <Tag info={tag} alltags={alltags} searchtag={false} removeTag={removeTag} sortTag={true}/>
                             ))
                         }
                         <Tag info={"New Tag"} alltags={alltags} searchtag={true} setTagSearch={setTagSearch} searchResults={searchResults} addTag={addTag} selectedTags={selectedTags}/>
@@ -332,8 +339,9 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
     )
 }
 
-const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags }) => {
+const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags, removeTag, sortTag=false }) => {
     
+
     function tagColor(name) {
         for (let i = 0; i < alltags.length; i++) {
             if (alltags[i].Name == name) {
@@ -346,18 +354,10 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
     
     const [dropdown, setDropdown] = useState(false)
 
-    var displayable = searchResults
-    let removed = 0
-    
-    if (searchResults) {
-        console.log(searchResults)
-        for (let i = 0; i < searchResults.length; i++ ) {
-            if (selectedTags.includes(searchResults[i])) {
-                displayable.splice(i - removed, 1)
-                removed += 1
-            }
-        }
-    }
+    const displayable = useMemo(() => {
+    if (!searchResults) return null;
+    return searchResults.filter(tag => !selectedTags.includes(tag));
+}, [searchResults, selectedTags]);
 
     // if (searchResults) {
     //     console.log(displayable)
@@ -368,7 +368,11 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
 
     return (
 
-        <div className="tagsholder">
+        <div className="tagsholder" onClick={() => {
+            if (sortTag) {
+                removeTag(info)
+            }
+        }}>
             <div className={`type1 ${color}`}>
                 <div className={`dot ${color}`}>
                     <div className={`dotimg ${color}`}></div>

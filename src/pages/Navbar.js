@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link, replace, useNavigate } from "react-router-dom"
 import "../styles/Navbar.css"
 import { useState } from "react"
 
@@ -28,7 +28,7 @@ const Navbar = ({open, setopen}) => {
                     buttons.map((info) => ( // info = one array in the buttons array. info[0] is text, info[1] is a link
                         <div onClick={() => {
                             setSelected(info[0])
-                            nav(info[1])
+                            nav(info[1] + "?" + new URLSearchParams({}).toString(), { replace: true })
                             }} onMouseEnter={() => sethovering(info[0])} onMouseLeave={() => sethovering("")} className={`pageselector ${selected === info[0]  ? "active" : (hovering === info[0] ? "hovering" : "")}`}>
                             <div className="selectorimg"></div>
                             <h1 className={`selectortext ${selected === info[0]  ? "active" : (hovering === info[0] ? "hovering" : "")}`}>{info[0]}</h1>
