@@ -368,11 +368,19 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
 
     return (
 
-        <div className="tagsholder" onClick={() => {
+        <div className="tagsholder" 
+        onClick={() => {
             if (sortTag) {
                 removeTag(info)
             }
-        }}>
+        }}
+        onFocus={() => {setDropdown(true)}}
+        onBlur={() => {
+            setDropdown(false)
+            console.log('hrllo')
+        }}
+        tabIndex={0}
+        >
             <div className={`type1 ${color}`}>
                 <div className={`dot ${color}`}>
                     <div className={`dotimg ${color}`}></div>
@@ -381,8 +389,6 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
                         className="taginputtext"
                         placeholder={info}
                         value={taginput}
-                        onFocus={() => {setDropdown(true)}}
-                        onBlur={() => {setDropdown(false)}}
                         onChange={(e) => {
                             // console.log("1")
                             setTagSearch(e.target.value)

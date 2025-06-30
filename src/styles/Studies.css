@@ -494,7 +494,7 @@
     width: auto;
     position: relative;
     flex-direction: column;
-    cursor: pointer;
+    /* cursor: pointer; */
 }
 
 .tagsdropdown {
@@ -504,6 +504,7 @@
 /*     
     background-color: #dfe3e9; */
     background-color: #e8ecf1;
+    border: 1px solid rgb(180, 180, 180);
     margin-top: .3rem;
     border-radius: 10px;
     transition: max-height .1s;
@@ -518,15 +519,17 @@
 .tagsdropdown.opend {
     max-height: 4rem;
     height: auto;
-    border: 1px solid rgb(180, 180, 180);
+    
     
 }
 
 .tagsdropdown.closedd {
+    transition: border 0s ease .08s, background-color 0s ease .08s, max-height .1s;
     max-height: 0;
     border: 0px solid black;
-    transition: border 0s ease .075s, height .1s;
-    background-color: transparent;
+    /* transition: max-height .1s; */
+    /* background-color: transparent; */
+    background-color: rgba(180, 180, 180, 0);
 }
 
 /* .tagsscroll {
