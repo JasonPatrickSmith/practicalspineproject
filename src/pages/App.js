@@ -2,10 +2,8 @@ import '../styles/App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useState, useRef, useEffect } from "react"
 import Navbar from './Navbar'
-import Clinical from "./Clinical"
 import Studies from "./Studies"
 import Paper from "./Paper"
-import Shonali from "./Shonali"
 
 function App() {
   const [open, setopen] = useState("true")
@@ -32,10 +30,8 @@ function App() {
         <div ref={ref} className={`pagecontent ${open}`}>
           <Routes>
             <Route path='/studies' element={<Studies narrow={narrow} setNarrow={setNarrow} />} />
-            <Route path='/clinical' element={<Clinical/>} />
             {/* <Route path='/studies' element={<Clinical/>} /> */}
             <Route path='/clinical/:id' element={<Paper/>}/>
-            <Route path='/shonali' element={<Shonali/>}/>
           </Routes>
         </div>
           

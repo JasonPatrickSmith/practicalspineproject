@@ -459,7 +459,7 @@
 .tagssection {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 4px;
 }
 
 .big.inline > .tagssection {
@@ -598,4 +598,10 @@
 
 .resultdot.t {
     background-color: #00b4d8 !important;
+}
+
+.sliders {
+    background-color: green;
+    width: 100%;
+    height: 2rem;
 }

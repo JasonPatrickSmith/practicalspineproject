@@ -323,6 +323,9 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
 
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
+            <div className="sliders">
+                
+            </div>
             <div className="tagssection">
                 <div className="fulltags">
                     <div className="tagspace">
