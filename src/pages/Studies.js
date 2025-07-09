@@ -324,7 +324,7 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
             <div className="sliders">
-                
+                <Slider/>
             </div>
             <div className="tagssection">
                 <div className="fulltags">
@@ -340,6 +340,12 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
             </div>
         </div>
     )
+}
+
+const Slider = ({ text="", min, max, icon=null }) => {
+    <div className="slider">
+        
+    </div>
 }
 
 const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags, removeTag, sortTag=false }) => {
@@ -380,7 +386,6 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
         onFocus={() => {setDropdown(true)}}
         onBlur={() => {
             setDropdown(false)
-            console.log('hrllo')
         }}
         tabIndex={0}
         >
