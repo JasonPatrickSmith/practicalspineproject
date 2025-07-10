@@ -13,6 +13,9 @@ import calendar from "../assets/calendar.png"
 import eye from "../assets/eye.png"
 import desc from "../assets/desc.png"
 
+// antd
+import { Slider } from "antd";
+
 
 function convertDate(dateStr) {
     const date = new Date(dateStr);
@@ -324,7 +327,8 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
             <div className="sliders">
-                <Slider/>
+                {/* <Slidera/> */}
+                <Slider max={100} min={0} range={true} style={{width: '90%'}}/>
             </div>
             <div className="tagssection">
                 <div className="fulltags">
@@ -342,10 +346,10 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
     )
 }
 
-const Slider = ({ text="", min, max, icon=null }) => {
-    <div className="slider">
+const Slidera = ({ title, unit="", min=0, max=100 }) => {
+    // <div className="slider">
         
-    </div>
+    // </div>
 }
 
 const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags, removeTag, sortTag=false }) => {
