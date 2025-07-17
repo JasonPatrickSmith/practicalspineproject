@@ -13,8 +13,10 @@ import calendar from "../assets/calendar.png"
 import eye from "../assets/eye.png"
 import desc from "../assets/desc.png"
 
+// import RangeSlider from "../extraComponents/RangeSlider.js"
+
 // antd
-import { Slider } from "antd";
+import { ConfigProvider, Slider } from "antd";
 
 
 function convertDate(dateStr) {
@@ -150,7 +152,6 @@ const Clinical = ({narrow, setNarrow}) => {
         return null
     }
 
-    // const [selectedTags, setSelectedTags] = useState(getTags() || [])
     const selectedTags = useMemo(() => {
         return getTags() || []
     }, [searchParams])
@@ -180,12 +181,67 @@ const Clinical = ({narrow, setNarrow}) => {
         setSearchParams(tagparam);
     }
 
-    // --------------- PARENT TAG LOGIC --------------------
+    
+
+    function getDuration() {
+        const origin = searchParams.get("duration")?.split(",")
+        if (origin != null) {
+            return [origin[0], origin[1]]
+        }
+        return null
+    }
+
+    function changeDuration(newTime) {
+
+    }
+
+    const currentDuration = useMemo(() => {
+        return getDuration() || [0, 120]
+    }, [searchParams])
+
+    function changeSample(newSize) {
+        
+    }
+
+    function getSample() {
+        const origin = searchParams.get("sample")?.split(",")
+        if (origin != null) {
+            return [origin[0], origin[1]]
+        }
+        return null
+    }
+
+    const currentSample = useMemo(() => {
+        return getSample() || [0, 1000]
+    }, [searchParams])
+
+    console.log(currentSample)
 
     return (
+        <ConfigProvider
+      theme={{
+        components: {
+          Slider: {
+            handleLineWidth: 1,
+            handleLineWidthHover: 1,
+            handleColor: "#0077b6",
+            colorPrimaryBorderHover: "#0077b6",
+            handleActiveColor: '#0077b6',
+            handleSizeHover: 11,
+            handleSize: 11,
+            trackBg: "#0077b6",
+            trackHoverBg: "#0077b6",
+            handleActiveOutlineColor: "transparent",
+            railHoverBg: "rgba(0,0,0,0.04)",
+            dotActiveBorderColor: "#0077b6"
+            }
+        },
+      }}
+    >
         <div className="mainstudies">
             
-            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag}/>}
+            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} 
+            selectedTags={selectedTags} removeTag={removeTag} currentSample={currentSample} sampleedit={changeSample} changeDuration={changeDuration} currentDuration={currentDuration}/>}
             <div className="rightstudies">
                 {/* <h1>All Studies</h1> */}
                 <div className="search">
@@ -217,7 +273,9 @@ const Clinical = ({narrow, setNarrow}) => {
                     </div> */}
                     
                 </div>
-                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag}/>}
+                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} 
+                fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag} currentSample={currentSample} sampleedit={changeSample} changeDuration={changeDuration} currentDuration={currentDuration}
+                />}
                 <div className="content">
                     <div className="cards">
                         {
@@ -285,13 +343,15 @@ const Clinical = ({narrow, setNarrow}) => {
                 </div>
             </div>
         </div>
+    </ConfigProvider>
     )
 }
 
-const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags, removeTag}) => {
+const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags, removeTag, currentSample, sampleedit, changeDuration, currentDuration}) => {
     
+    const [activated, setActivated] = useState(["filters", "tags", "timeline"])
+
     function extractNames(array, a = false) { // a is the option to sort alphabetically
-        // console.log(array)
         let returner = []
         for (let i = 0; i < array.length; i++) {
             if (array[i].Name != "New Tag") {
@@ -304,7 +364,7 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
 
         return returner
     }
-
+    
     const alphabetically = useMemo(() => extractNames(alltags, true), [alltags]);
     const [tagSearch, setTagSearch] = useState("")
     const [searchResults, setSearchResults] = useState(alphabetically)
@@ -323,14 +383,19 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
         }
     }, [tagSearch, selectedTags, alltags]) // Whenever the query changes, update tagsearch
 
-
     return (
         <div className={`big ${inline ? "inline" : "out"}`}>
-            <div className="sliders">
-                {/* <Slidera/> */}
-                <Slider max={100} min={0} range={true} style={{width: '90%'}}/>
+            <div className="buttons">
+
             </div>
-            <div className="tagssection">
+            <div className="timeline">
+                {/* <RangeSlider /> */}
+            </div>
+            <div className={`sliders ${activated.includes("filters") ? "" : "nodisplay"}`}>
+                <CustomSlide title="Duration" min={0} max={120} first={currentDuration} setter={changeDuration} unit={"Years"} extraMax={10} dateConvert={true}/>
+                <CustomSlide title="Sample Size" min={0} max={900} first={currentSample} setter={sampleedit} step={10} more={true}/>
+            </div>
+            <div className={`tagssection ${activated.includes("tags") ? "" : "nodisplay"}`}>
                 <div className="fulltags">
                     <div className="tagspace">
                         {
@@ -346,10 +411,78 @@ const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, a
     )
 }
 
-const Slidera = ({ title, unit="", min=0, max=100 }) => {
-    // <div className="slider">
+const CustomSlide = ({ title, min, max, first, setter, step=1, more=false, unit="", extraMax="", dateConvert=false}) => { // extra max is max to be displayed if normal mex isn't correct (think times)
+
+    const [slideDisabled, setSlideDisabled] = useState(false)
+
+    
+
+    function dateSlide(value) {
+        if (value === 0) {
+            return '0m'
+        }
+        const years = Math.floor(value / 12);
+        const months = value % 12;
+        return `${years > 0 ? `${years}y` : ''}${months > 0 ? ` ${months}m` : ''}`.trim();
+    }
+
+    const defaultTooltip = dateConvert ? { formatter: dateSlide } : {}
+
+    return (
+        <div className="slideparent">
+            { more ? (
+                <div className="slideinfowrapper">
+                    <div className="slideinfo">
+                        {title} {unit && `(${unit})`}
+                    </div>
+                    <div className="morecheck">
+                        <p className="moretxt">{`${max}+`}</p>
+                        <input 
+                        type="checkbox"
+                        className="nocheck"
+                        onChange={(e) => {
+                            console.log(e.target.checked)
+                            setSlideDisabled(e.target.checked)
+                        }}
+                        />
+                    </div>
+                </div>
+                
+            ) : (
+                <div className="slideinfo">
+                    {title} {unit && `(${unit})`}
+                </div>
+            )}
+            
+            <div className="slideelem">
+                <p className="slidevals sleft">{min}</p>
+                <Slider 
+                tooltip={
+                    slideDisabled
+                    ? {
+                        ...defaultTooltip, 
+                        open: false}
+                    : { ...defaultTooltip }
+                }
+
+                max={max} 
+                min={min} 
+                range={true} 
+                style={{width: '88%'}}
+                defaultValue={first}
+                onChange={(val) => {
+                    setter(val)
+                }}
+                step={step}
+                disabled={slideDisabled}
+                />
+                <p className="slidevals sright">{extraMax ? extraMax : max}</p>
+            </div>
         
-    // </div>
+        </div>
+    )
+    // <div className="slider">
+    
 }
 
 const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, selectedTags, removeTag, sortTag=false }) => {
@@ -371,11 +504,6 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
     if (!searchResults) return null;
     return searchResults.filter(tag => !selectedTags.includes(tag));
 }, [searchResults, selectedTags]);
-
-    // if (searchResults) {
-    //     console.log(displayable)
-    // }
-    
     
     const [taginput, settaginput] = useState("")
 
@@ -402,7 +530,6 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
                         placeholder={info}
                         value={taginput}
                         onChange={(e) => {
-                            // console.log("1")
                             setTagSearch(e.target.value)
                             settaginput(e.target.value)
                         }}

@@ -17,7 +17,8 @@ function App() {
   
           const observer = new ResizeObserver(([entry]) => {
               const width = entry.contentRect.width;       // 4. Get the element's rendered width
-              setNarrow(width <= 949);                    // 5. Set state if width < 500
+              // setNarrow(width <= 949);                    // 5. Set state if width < 500
+              setNarrow(width <= 800);   
           });
   
           observer.observe(el);                          // 6. Start observing the element

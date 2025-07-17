@@ -57,7 +57,11 @@ p {
   color: #081b24;
 }
 
-@media (max-width: 950px) {
+.nodisplay {
+  display: none !important;
+}
+
+@media (max-width: 1041px) {
   .pagecontent {
     width: 100% !important;
     flex: none;

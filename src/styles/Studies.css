@@ -8,7 +8,6 @@
     flex-direction: row;
     position: relative;
     /* margin-left: 0; */
-    gap: 2rem;
 }
 
 .rightstudies {
@@ -21,6 +20,7 @@
     align-items: center;
     /* margin-left: 0; */
     /* gap: 3rem; */
+    min-width: 493px;
 }
 
 .rightstudies > .search {
@@ -165,9 +165,8 @@
     /* min-width: 35rem; */
 }
 
-@container pagecontent (max-width: 949px) {
+@container pagecontent (max-width: 800px) {
     .content > .cards, .searchbar {
-        /* max-width: 30rem; */
         width: 90% ; 
         min-width: 0;
     }
@@ -229,7 +228,6 @@
 
 .type1.c {
     border: 1px solid #86a5b4 !important;
-    background-color: #e2e8ef !important;
 }
 
 .dotimg.c {
@@ -237,7 +235,6 @@
 }
 
 .type1.t {
-    background-color: #e2e8ef !important;
     border: 1px solid #80b5c0 !important;
 }
 
@@ -247,7 +244,6 @@
 
 .type1.g {
     border: 1px solid #9ca5ad !important;
-    background-color: #dfe3e9 !important;
 }
 
 .dotimg.g {
@@ -441,7 +437,7 @@
 
 
 .big {
-    width: 20rem;
+    flex: 1;
     height: auto;
     /* background-color: red; */
     display: flex;
@@ -449,8 +445,10 @@
 }
 
 .big.inline {
-    flex-direction: row;
+    flex-direction: column;
     width: 90%;
+    align-self: auto;
+    max-height: 8rem;
 }
 
 .big.out {
@@ -461,10 +459,7 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
-
-.big.inline > .tagssection {
-    width: 20rem;
+    width: 100%;
 }
 
 .fulltags {
@@ -602,28 +597,136 @@
 }
 
 .sliders {
-    background-color: green;
-    width: 100%;
-    height: 2rem;
-}
-
-/* sliders */
-
-.sliders {
-    max-height: 5rem;
-    padding-top: .75rem;
-    padding-bottom: .75rem;
+    padding-top: .25rem;
     border-radius: 15px;
     border: 1px solid rgb(180, 180, 180);
     background-color: #e8ecf1;
-    width: 100%;
+    width: calc(100% - 20px);
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: relative;
+    height: auto;
 }
 
-.slider {
+.slideparent {
+    flex-direction: column;
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.slideelem {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+/* .otherslider {
+    width: 80%;
+} */
+
+.slidevals {
+    font-size: 11px;
+    line-height: 11px;
     
 }
 
-/* sliders */
+.sright {
+    margin-left: 7px;
+    text-align: left;
+}
+
+.sleft {
+    margin-right: 7px;
+    text-align: right;
+}
+
+.slideinfo {
+    font-size: 11px;
+    line-height: 22px;
+}
+
+.slideinfowrapper {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+}
+
+.morecheck {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.moretxt {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+    line-height: 22px;
+}
+
+.nocheck {
+    margin-top: 4px;
+    width: 13px;
+  height: 13px;
+  appearance: none;          /* Remove native checkmark */
+  -webkit-appearance: none;  /* Safari */
+  border: 1px solid #0077b6;
+  border-radius: 5px;
+  background-color: white;
+  transition: background-color .1s;
+}
+
+.nocheck:checked {
+  background-color: #0077b6; /* Blue fill when checked */
+  /* No checkmark shown */
+}
+
+.toolcol {
+
+}
+
+.notoolcol {
+
+}
+
+
+/* custom antd slider */
+
+
+.ant-slider-tooltip .ant-tooltip-inner {
+  background-color: #0070ab;
+  color: white;
+  font-size: 11px !important;
+  border-radius: 4px;
+  min-height: 0px !important;
+  height: 20px;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  text-align: center;
+  line-height: 20px;
+  border: 0 !important;
+  width: auto !important;
+  /* min-width: 28px; */
+  padding: 0 5px 0 5px !important;
+}
+
+.ant-slider-tooltip .ant-tooltip-arrow::before {
+  background: #0070ab; /* Or your tooltip background */
+}
+
+.ant-tooltip {
+    height: 20px;
+     border: 0 !important;
+}
+
+.ant-tooltip-content {
+    height: 20px;
+     border: 0 !important;
+}
+
+/* custom antd slider */
