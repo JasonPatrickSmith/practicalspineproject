@@ -192,14 +192,19 @@ const Clinical = ({narrow, setNarrow}) => {
     }
 
     function changeDuration(newTime) {
-
+        const durParam = new URLSearchParams(searchParams.toString())
+        durParam.set(
+            "duration",
+            `${newTime[0]},${newTime[1]}`
+        )
+        setSearchParams(durParam)
     }
 
     const currentDuration = useMemo(() => {
         return getDuration() || [0, 120]
     }, [searchParams])
 
-    function changeSample(newSize) {
+    function applySample() {
         
     }
 
@@ -240,14 +245,15 @@ const Clinical = ({narrow, setNarrow}) => {
     >
         <div className="mainstudies">
             
-            {!narrow && <Sort alltags={alltags} inline={false} searchParams={searchParams} setSearchParams={setSearchParams} fuse={tagsfuse} addTag={addTag} 
-            selectedTags={selectedTags} removeTag={removeTag} currentSample={currentSample} sampleedit={changeSample} changeDuration={changeDuration} currentDuration={currentDuration}/>}
+            {!narrow && <Sort alltags={alltags} inline={false} fuse={tagsfuse} addTag={addTag}
+            selectedTags={selectedTags} removeTag={removeTag} currentSample={currentSample} 
+            sampleedit={applySample} changeDuration={changeDuration} currentDuration={currentDuration}/>}
             <div className="rightstudies">
                 {/* <h1>All Studies</h1> */}
                 <div className="search">
 
                     <div className="searchbar">
-                        <img src={magnifying} onClick={applySearch}></img>
+                        <img src={magnifying} onClick={applySearch} loading="lazy"></img>
 
                         <input 
                         value={search}
@@ -268,13 +274,11 @@ const Clinical = ({narrow, setNarrow}) => {
                         } />
                     </div>
                     
-                    {/* <div className="filters">
-
-                    </div> */}
-                    
                 </div>
-                {narrow && <Sort alltags={alltags} inline={true} searchParams={searchParams} setSearchParams={setSearchParams} 
-                fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} removeTag={removeTag} currentSample={currentSample} sampleedit={changeSample} changeDuration={changeDuration} currentDuration={currentDuration}
+                {narrow && <Sort alltags={alltags} inline={true}
+                fuse={tagsfuse} addTag={addTag} selectedTags={selectedTags} 
+                removeTag={removeTag} currentSample={currentSample} 
+                sampleedit={applySample} changeDuration={changeDuration} currentDuration={currentDuration}
                 />}
                 <div className="content">
                     <div className="cards">
@@ -297,19 +301,19 @@ const Clinical = ({narrow, setNarrow}) => {
                                 
                                 <div className="details">
                                     <div className="duration">
-                                        <img src={clock}></img>
+                                        <img src={clock} loading="lazy"></img>
                                         <p>{convertDuration(info.Duration)}</p>
                                     </div>
                                     <div className="sample_size">
-                                        <img src={person}></img>
+                                        <img src={person} loading="lazy"></img>
                                         <p>{info.sample_size}</p>
                                     </div>
                                     <div className="date">
-                                        <img src={calendar}></img>
+                                        <img src={calendar} loading="lazy"></img>
                                         <p>{convertDate(info.date)}</p>
                                     </div>
                                     <div className="views">
-                                        <img src={eye}></img>
+                                        <img src={eye} loading="lazy"></img>
                                         <p>{info.views}</p>
                                     </div>
                                 </div>
@@ -324,7 +328,7 @@ const Clinical = ({narrow, setNarrow}) => {
                                         handleDesc(i)
                                         e.stopPropagation()
                                     }}>
-                                        <img src={desc}></img>
+                                        <img src={desc} loading="lazy"></img>
                                         <div className="desctext">
                                             Description
                                         </div>
@@ -347,7 +351,7 @@ const Clinical = ({narrow, setNarrow}) => {
     )
 }
 
-const Sort = ({inline, searchParams, setSearchParams, alltags={alltags}, fuse, addTag, selectedTags, removeTag, currentSample, sampleedit, changeDuration, currentDuration}) => {
+const Sort = ({inline, alltags={alltags}, fuse, addTag, selectedTags, removeTag, currentSample, sampleedit, changeDuration, currentDuration}) => {
     
     const [activated, setActivated] = useState(["filters", "tags", "timeline"])
 
@@ -569,7 +573,5 @@ const Tag = ({ info, alltags, searchtag, setTagSearch, searchResults, addTag, se
     )
     
 }
-
-
 
 export default Clinical;
